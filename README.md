@@ -1,10 +1,10 @@
-#Cron Expression Parser (Deliveroo)
+# Cron Expression Parser (Deliveroo)
 
 Original task description could be found in `Cron_Parser_Task.pdf`
 
 Application was developed using JDK 15 so update your system accordingly if needed.
 
-##Running the application
+## Running the application
 
 Application is packaged to a fat JAR by `sbt-assembly` plugin via `sbt assembly` call. So the JRE installed is a prerequisite to run the app.
 
@@ -27,13 +27,13 @@ command       /usr/bin/find
 
 ```
 
-##Running tests
+## Running tests
 
 There are a couple of unit tests you can check by running
 
 ```sbt test```
 
-##Implementation details
+## Implementation details
 
 - time fragments allow either numeric templates, or string equivalents (like `feb-aug`, `mon,tue` for months and weekdays respectively)
 - error handling is implemented until the first error happens, then short summary is shown in the console
