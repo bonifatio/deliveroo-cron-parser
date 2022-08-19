@@ -1,11 +1,20 @@
 package uk.co.deliveroo
 
 import cats.implicits._
+import org.scalactic.{AbstractStringUniformity, Uniformity}
 import org.scalatest.EitherValues._
 import org.scalatest.{FlatSpec, Matchers}
 
 class CrontabItemSpec extends FlatSpec with Matchers {
   import CrontabItem._
+
+  val newLineNormalized: Uniformity[String] =
+    new AbstractStringUniformity {
+
+      def normalized(s: String): String = s.replaceAll(raw"\R", "\n")
+
+      override def toString: String = "newLineNormalized"
+    }
 
   behavior of "tabular formatting"
 
@@ -28,7 +37,7 @@ class CrontabItemSpec extends FlatSpec with Matchers {
          |day of week   2 4 6
          |command       foo""".stripMargin
 
-    crontabItem.show shouldBe expected
+    crontabItem.show should equal (expected) (after being newLineNormalized)
   }
 
   it should "generate proper table with year" in {
@@ -51,7 +60,7 @@ class CrontabItemSpec extends FlatSpec with Matchers {
          |year          2020 2021
          |command       foo""".stripMargin
 
-    crontabItem.show shouldBe expected
+    crontabItem.show should equal (expected) (after being newLineNormalized)
   }
 
   behavior of "parsing crontab string"
